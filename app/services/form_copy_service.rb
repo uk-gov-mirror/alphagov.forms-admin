@@ -16,12 +16,16 @@ class FormCopyService
     ActiveRecord::Base.transaction do
       copy_attributes(content)
       prepend_name
+      # copy_pages_and_conditions(content["steps"])
+
       @copied_form.save!
       @copied_form
     rescue ActiveRecord::RecordInvalid => e
       Rails.logger.error("Failed to copy form #{@form.id}: #{e.message}")
     end
   end
+
+private
 
   def attributes_to_copy
     Form.attribute_names - TO_EXCLUDE.map(&:to_s)
