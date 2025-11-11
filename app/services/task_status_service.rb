@@ -88,7 +88,7 @@ private
   end
 
   def receive_csv_status
-    return :completed if @form.email_with_csv?
+    return :completed if @form.submission_format.include? "csv"
 
     :optional
   end
